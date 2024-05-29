@@ -9,8 +9,23 @@ namespace dotNet_RESTful_Web_API.Controllers;
 public class ApiController : ControllerBase
 {
     [HttpGet]
-    public IEnumerable<UserDto> GetVillas()
+    public ActionResult<IEnumerable<UserDto>> GetUsers()
     {
-        return DataStore.UserList;
+        return Ok(DataStore.UserList);
+    }
+    [HttpGet("{id:int}")]
+    public ActionResult<UserDto> GetOneUser(int id)
+    {
+        if (id == 0)
+        {
+            return BadRequest();
+        }
+
+        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        if(user==null)
+        {
+            return NotFound();
+        }
+        return Ok(user);
     }
 }
