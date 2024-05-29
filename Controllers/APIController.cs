@@ -1,4 +1,5 @@
-﻿using dotNet_RESTful_Web_API.models;
+﻿using dotNet_RESTful_Web_API.Data;
+using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,6 @@ public class ApiController : ControllerBase
     [HttpGet]
     public IEnumerable<UserDto> GetVillas()
     {
-        return new List<UserDto>
-        {
-
-        };
+        return DataStore.UserList;
     }
 }
