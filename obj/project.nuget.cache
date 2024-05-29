@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "bTJehaQvJMCaW8a3CLR8RrdIqrHWFs/DtIr3W0Pzumpp/jRBuxuzSay7pgEpqQ4PM3VqHdiUXBJXqQ34iafCcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ziada\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
