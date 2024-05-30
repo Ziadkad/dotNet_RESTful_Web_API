@@ -9,10 +9,18 @@ namespace dotNet_RESTful_Web_API.Controllers;
 [ApiController] // Also gives validations see UserDto.cs
 public class UserController : ControllerBase
 {
+    private readonly ILogger<UserController> _logger;
+    
+    public UserController(ILogger<UserController> logger)
+    {
+        _logger = logger;
+    }
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<UserDto>> GetUsers()
     {
+        _logger.LogInformation("Getting All Users");
         return Ok(DataStore.UserList);
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
@@ -26,6 +34,7 @@ public class UserController : ControllerBase
     {
         if (id == 0)
         {
+            _logger.LogError("Get User Error with Id : " + id);
             return BadRequest();
         }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "i2KUJNE73fLoYymQM6T4ETFLtxlGm/4RkNYaAsGMipLbi/BHvYJpFCRchazZwRbrTxPZ6qCP6GidrgEoHwxbkA==",
+  "dgSpecHash": "0YB+MKQ/BUky8oURcox2iYd3lhxPWl7NEl2SvqkDosLp6Qmyb45Jm1E9Fs/LteKiW0XbBM8FM3oxQwTGQFnkvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,8 @@
     "C:\\Users\\ziada\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\serilog\\4.0.0-dev-02201\\serilog.4.0.0-dev-02201.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\serilog.sinks.file\\5.0.1-dev-00972\\serilog.sinks.file.5.0.1-dev-00972.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

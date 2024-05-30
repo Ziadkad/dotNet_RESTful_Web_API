@@ -9,6 +9,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="9.0.0-preview.4.24267.6" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
+        <PackageReference Include="Serilog" Version="4.0.0-dev-02201" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00972" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 

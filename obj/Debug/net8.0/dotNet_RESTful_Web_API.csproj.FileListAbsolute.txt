@@ -35,3 +35,5 @@ C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNe
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Serilog.dll
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Serilog.Sinks.File.dll

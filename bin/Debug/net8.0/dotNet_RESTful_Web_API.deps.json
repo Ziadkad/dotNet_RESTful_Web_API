@@ -10,6 +10,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.JsonPatch": "9.0.0-preview.4.24267.6",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.6",
+          "Serilog": "4.0.0-dev-02201",
+          "Serilog.Sinks.File": "5.0.1-dev-00972",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
@@ -67,6 +69,25 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.2.22727"
+          }
+        }
+      },
+      "Serilog/4.0.0-dev-02201": {
+        "runtime": {
+          "lib/net8.0/Serilog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Serilog.Sinks.File/5.0.1-dev-00972": {
+        "dependencies": {
+          "Serilog": "4.0.0-dev-02201"
+        },
+        "runtime": {
+          "lib/net6.0/Serilog.Sinks.File.dll": {
+            "assemblyVersion": "5.0.1.0",
+            "fileVersion": "5.0.1.0"
           }
         }
       },
@@ -164,6 +185,20 @@
       "sha512": "sha512-QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
       "path": "newtonsoft.json.bson/1.0.2",
       "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
+    },
+    "Serilog/4.0.0-dev-02201": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OsxdLAlwlD8calv3D8IsLQHXTvKXsP61YzysxHOw3rQ0QIA3fx2gKCs02gXbjOgKzWrJTE4uPFvRVK7TPQjLLg==",
+      "path": "serilog/4.0.0-dev-02201",
+      "hashPath": "serilog.4.0.0-dev-02201.nupkg.sha512"
+    },
+    "Serilog.Sinks.File/5.0.1-dev-00972": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fIK2UIewc1meCDpL8pOJLy0QRe1IzqJ3cnSXjz7GpPVVCr715nFloa49QKeK4dFPDgQk9xU3zi3ioIVefSi0+Q==",
+      "path": "serilog.sinks.file/5.0.1-dev-00972",
+      "hashPath": "serilog.sinks.file.5.0.1-dev-00972.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",
