@@ -10,5 +10,7 @@ public class UserDto
     [MaxLength(30)] //validation 
     public string Name { get; set; } = string.Empty;
     public int Age { get; set; }
-    public bool Disability { get; set; } = false;
+    public bool Disability { get; set; }
+    public string email { get; set; }
+    public string ImageUrl { get; set; } 
 }
