@@ -1,5 +1,7 @@
 
 
+using dotNet_RESTful_Web_API.Logging;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // configuring Serilog to log in a file 
@@ -22,6 +24,12 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// custom logging
+// explicit call so every object created with ILogging takes Logging
+// Singleton same object for every time the application request an implementation // longest life time
+// Scoped new  object for every request
+// Transient new object every time object is accessed even within the same request
+builder.Services.AddSingleton<ILogging, Logging>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

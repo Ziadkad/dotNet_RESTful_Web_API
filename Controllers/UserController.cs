@@ -1,4 +1,5 @@
 ﻿using dotNet_RESTful_Web_API.Data;
+using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using Microsoft.AspNetCore.JsonPatch;
@@ -9,18 +10,27 @@ namespace dotNet_RESTful_Web_API.Controllers;
 [ApiController] // Also gives validations see UserDto.cs
 public class UserController : ControllerBase
 {
+    // integrated logger
     private readonly ILogger<UserController> _logger;
     
     public UserController(ILogger<UserController> logger)
     {
         _logger = logger;
     }
+    // custom Logger
+    // private readonly ILogging _logger;
+    //
+    // public UserController(ILogging logger)
+    // {
+    //     _logger = logger;
+    // }
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<UserDto>> GetUsers()
     {
         _logger.LogInformation("Getting All Users");
+        // _logger.Log("Getting All Users"," ");
         return Ok(DataStore.UserList);
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
@@ -35,6 +45,7 @@ public class UserController : ControllerBase
         if (id == 0)
         {
             _logger.LogError("Get User Error with Id : " + id);
+            // _logger.Log("Get User Error with Id : " + id,"error");
             return BadRequest();
         }
 
