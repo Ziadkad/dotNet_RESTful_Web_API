@@ -1,6 +1,7 @@
 ﻿using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotNet_RESTful_Web_API.Controllers;
@@ -109,4 +110,29 @@ public class UserController : ControllerBase
         user.Disability = userDto.Disability;
         return NoContent();
     }
+
+    [HttpPatch("{id:int}", Name = "UpdatePartialUser")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult UpdatePartialUser(int id, JsonPatchDocument<UserDto> patchDto)
+    {
+        if (patchDto == null || id == 0)
+        {
+            return BadRequest();
+        }
+        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        patchDto.ApplyTo(user, ModelState);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return NoContent();
+    }
+     
 }

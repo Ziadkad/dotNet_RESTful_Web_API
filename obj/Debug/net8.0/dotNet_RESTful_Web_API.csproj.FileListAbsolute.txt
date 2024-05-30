@@ -31,3 +31,7 @@ C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNe
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\obj\Debug\net8.0\dotNet_RESTful_Web_API.genruntimeconfig.cache
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\obj\Debug\net8.0\ref\dotNet_RESTful_Web_API.dll
 C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\obj\Debug\net8.0\dotNet_RESTful_Web_API.sourcelink.json
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\ziada\OneDrive\Bureau\.Net RESTful Web API\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
