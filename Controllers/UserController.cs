@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotNet_RESTful_Web_API.Controllers;
 [Route("api/[controller]")]
 [ApiController] // Also gives validations see UserDto.cs
-public class ApiController : ControllerBase
+public class UserController : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -91,6 +91,22 @@ public class ApiController : ControllerBase
         }
 
         DataStore.UserList.Remove(user);
+        return NoContent();
+    }
+
+    [HttpPut("{id:int}",Name = "UpdateUser")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult UpdateUser(int id,[FromBody] UserDto userDto)
+    {
+        if (userDto == null || id != userDto.Id)
+        {
+            return BadRequest();
+        }
+        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        user.Name = userDto.Name;
+        user.Age = userDto.Age;
+        user.Disability = userDto.Disability;
         return NoContent();
     }
 }
