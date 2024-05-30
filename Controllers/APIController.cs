@@ -48,6 +48,14 @@ public class ApiController : ControllerBase
         // {
         //     return BadRequest(ModelState);
         // }
+        
+        //custom Error
+        if (DataStore.UserList.FirstOrDefault(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
+        {
+            ModelState.AddModelError("CustomError","User already Exists!");
+            return BadRequest(ModelState);
+        }
+        
         if (userDto == null)
         {
             return BadRequest(userDto);
@@ -64,5 +72,25 @@ public class ApiController : ControllerBase
         // return Ok(userDto);
         // we get the route in the http response header 
         return CreatedAtRoute("GetOneUser",new { id=userDto.Id }, userDto);
+    }
+
+    [HttpDelete("{id:int}", Name = "DeleteUser")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult DeleteUser(int id)
+    {
+        if (id == 0)
+        {
+            return BadRequest();
+        }
+        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        DataStore.UserList.Remove(user);
+        return NoContent();
     }
 }
