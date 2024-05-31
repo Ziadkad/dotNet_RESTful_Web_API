@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj": {}
+    "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj": {
+    "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
+        "projectUniqueName": "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
         "projectName": "dotNet_RESTful_Web_API",
-        "projectPath": "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
+        "projectPath": "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
         "packagesPath": "C:\\Users\\ziada\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ziada\\OneDrive\\Bureau\\.Net RESTful Web API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\obj\\",
+        "outputPath": "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ziada\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,16 @@
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.0-preview.4.24267.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0-preview.4.24267.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

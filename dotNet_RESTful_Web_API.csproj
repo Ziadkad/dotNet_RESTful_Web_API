@@ -9,7 +9,16 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="9.0.0-preview.4.24267.6" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.4.24267.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.4.24267.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

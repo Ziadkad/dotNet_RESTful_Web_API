@@ -12,10 +12,12 @@ public class UserController : ControllerBase
 {
     // integrated logger
     private readonly ILogger<UserController> _logger;
+    private readonly AppDbContext _db;
     
-    public UserController(ILogger<UserController> logger)
+    public UserController(ILogger<UserController> logger, AppDbContext db)
     {
         _logger = logger;
+        _db = db;
     }
     // custom Logger
     // private readonly ILogging _logger;
@@ -29,9 +31,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<UserDto>> GetUsers()
     {
-        _logger.LogInformation("Getting All Users");
+        // _logger.LogInformation("Getting All Users");
         // _logger.Log("Getting All Users"," ");
-        return Ok(DataStore.UserList);
+        return Ok(_db.Users);
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
     // [ProducesResponseType(200,Type = typeof(UserDto))]
@@ -49,7 +51,7 @@ public class UserController : ControllerBase
             return BadRequest();
         }
 
-        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        var user = _db.Users.FirstOrDefault(u => u.Id == id);
         if(user==null)
         {
             return NotFound();
@@ -71,7 +73,7 @@ public class UserController : ControllerBase
         // }
         
         //custom Error
-        if (DataStore.UserList.FirstOrDefault(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
+        if (_db.Users.FirstOrDefault(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","User already Exists!");
             return BadRequest(ModelState);
@@ -86,9 +88,19 @@ public class UserController : ControllerBase
         {
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
-        //incrementingID
-        userDto.Id = DataStore.UserList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
-        DataStore.UserList.Add(userDto);
+
+        User model = new()
+        {
+            Id = userDto.Id,
+            Age = userDto.Age,
+            Disability = userDto.Disability,
+            Name = userDto.Name,
+            Email = userDto.Email,
+            Password = userDto.Password,
+            ImageUrl = userDto.ImageUrl
+        };
+        _db.Users.Add(model);
+        _db.SaveChanges();
         //this is fine but sometimes front want the end points, if that's the case we add explicit func to getbyid methode
         // return Ok(userDto);
         // we get the route in the http response header 
@@ -105,13 +117,14 @@ public class UserController : ControllerBase
         {
             return BadRequest();
         }
-        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        var user = _db.Users.FirstOrDefault(u => u.Id == id);
         if (user == null)
         {
             return NotFound();
         }
 
-        DataStore.UserList.Remove(user);
+        _db.Users.Remove(user);
+        _db.SaveChanges();
         return NoContent();
     }
 
@@ -124,10 +137,22 @@ public class UserController : ControllerBase
         {
             return BadRequest();
         }
-        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
-        user.Name = userDto.Name;
-        user.Age = userDto.Age;
-        user.Disability = userDto.Disability;
+        // var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        // user.Name = userDto.Name;
+        // user.Age = userDto.Age;
+        // user.Disability = userDto.Disability;
+        User model = new()
+        {
+            Id = userDto.Id,
+            Age = userDto.Age,
+            Disability = userDto.Disability,
+            Name = userDto.Name,
+            Email = userDto.Email,
+            Password = userDto.Password,
+            ImageUrl = userDto.ImageUrl
+        };
+        _db.Users.Update(model);
+        _db.SaveChanges();
         return NoContent();
     }
 
@@ -141,17 +166,38 @@ public class UserController : ControllerBase
         {
             return BadRequest();
         }
-        var user = DataStore.UserList.FirstOrDefault(u => u.Id == id);
+        var user = _db.Users.FirstOrDefault(u => u.Id == id);
+        UserDto userDto = new()
+        {
+            Id = user.Id,
+            Age = user.Age,
+            Disability = user.Disability,
+            Name = user.Name,
+            Email = user.Email,
+            Password = user.Password,
+            ImageUrl = user.ImageUrl
+        };
         if (user == null)
         {
             return NotFound();
         }
-        patchDto.ApplyTo(user, ModelState);
+        patchDto.ApplyTo(userDto, ModelState);
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
-
+        User model = new()
+        {
+            Id = userDto.Id,
+            Age = userDto.Age,
+            Disability = userDto.Disability,
+            Name = userDto.Name,
+            Email = userDto.Email,
+            Password = userDto.Password,
+            ImageUrl = userDto.ImageUrl
+        };
+        _db.Users.Update(model);
+        _db.SaveChanges();
         return NoContent();
     }
      

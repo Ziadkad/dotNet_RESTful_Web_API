@@ -11,6 +11,7 @@ public class UserDto
     public string Name { get; set; } = string.Empty;
     public int Age { get; set; }
     public bool Disability { get; set; }
-    public string email { get; set; }
+    public string Email { get; set; }
+    public string Password  { get; set; }
     public string ImageUrl { get; set; } 
 }
