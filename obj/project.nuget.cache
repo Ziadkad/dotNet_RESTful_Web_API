@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bc97hYcAN3znVK77yWzZX4TJdTpszheXBiM21kxWgJ756Pp3fxiZW6BHYZGF8lQt41G+OvLcyT5DZmen8p9xiw==",
+  "dgSpecHash": "/U3BThy+8/5LFFn5CfucozRRO1HS6ORt5k6KOmMzHlXXkEAEpivuOA/hN8GbaDT9txl/tnM6V3rAcjxpdhgTAg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ziada\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

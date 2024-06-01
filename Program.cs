@@ -2,6 +2,7 @@
 
 using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.Logging;
+using dotNet_RESTful_Web_API.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,9 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
-    
+
+builder.Services.AddAutoMapper(typeof(MappingConfig));
+
 // configuring Serilog to log in a file 
 // Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/Userlogs.txt",rollingInterval: RollingInterval.Infinite).CreateLogger();
 

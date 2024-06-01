@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotNet_RESTful_Web_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1dcea993ef28586a2ff8e691d94ad6bcd18e9e72")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f92e8162707e36607c5e41e3ba29badadfee2c20")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotNet_RESTful_Web_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotNet_RESTful_Web_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
