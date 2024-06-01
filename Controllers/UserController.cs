@@ -4,6 +4,7 @@ using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotNet_RESTful_Web_API.Controllers;
 [Route("api/[controller]")]
@@ -29,11 +30,11 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<IEnumerable<UserDto>> GetUsers()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
     {
         // _logger.LogInformation("Getting All Users");
         // _logger.Log("Getting All Users"," ");
-        return Ok(_db.Users);
+        return Ok(await _db.Users.ToListAsync());
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
     // [ProducesResponseType(200,Type = typeof(UserDto))]
@@ -42,7 +43,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<UserDto> GetOneUser(int id)
+    public async Task<ActionResult<UserDto>> GetOneUser(int id)
     {
         if (id == 0)
         {
@@ -51,7 +52,7 @@ public class UserController : ControllerBase
             return BadRequest();
         }
 
-        var user = _db.Users.FirstOrDefault(u => u.Id == id);
+        var user =await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if(user==null)
         {
             return NotFound();
@@ -62,9 +63,9 @@ public class UserController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     // [FromBody] means the body of http req
-    public ActionResult<UserDto> CreateUser([FromBody] UserDto userDto)
+    public async Task<ActionResult<UserDto>> CreateUser([FromBody] UserCreateDto userDto)
     {
         //this is unnecessary unless we comment [ApiController]
         // if (!ModelState.IsValid)
@@ -73,7 +74,7 @@ public class UserController : ControllerBase
         // }
         
         //custom Error
-        if (_db.Users.FirstOrDefault(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
+        if (await _db.Users.FirstOrDefaultAsync(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","User already Exists!");
             return BadRequest(ModelState);
@@ -84,14 +85,13 @@ public class UserController : ControllerBase
             return BadRequest(userDto);
         }
 
-        if (userDto.Id > 0)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        // if (userDto.Id > 0)
+        // {
+        //     return StatusCode(StatusCodes.Status500InternalServerError);
+        // }
 
         User model = new()
         {
-            Id = userDto.Id,
             Age = userDto.Age,
             Disability = userDto.Disability,
             Name = userDto.Name,
@@ -99,39 +99,39 @@ public class UserController : ControllerBase
             Password = userDto.Password,
             ImageUrl = userDto.ImageUrl
         };
-        _db.Users.Add(model);
-        _db.SaveChanges();
+        await _db.Users.AddAsync(model);
+        await _db.SaveChangesAsync();
         //this is fine but sometimes front want the end points, if that's the case we add explicit func to getbyid methode
         // return Ok(userDto);
         // we get the route in the http response header 
-        return CreatedAtRoute("GetOneUser",new { id=userDto.Id }, userDto);
+        return CreatedAtRoute("GetOneUser",new { id=model.Id }, model);
     }
 
     [HttpDelete("{id:int}", Name = "DeleteUser")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult DeleteUser(int id)
+    public async Task<IActionResult> DeleteUser(int id)
     {
         if (id == 0)
         {
             return BadRequest();
         }
-        var user = _db.Users.FirstOrDefault(u => u.Id == id);
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user == null)
         {
             return NotFound();
         }
 
         _db.Users.Remove(user);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return NoContent();
     }
 
     [HttpPut("{id:int}",Name = "UpdateUser")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdateUser(int id,[FromBody] UserDto userDto)
+    public async Task<IActionResult> UpdateUser(int id,[FromBody] UserUpdateDto userDto)
     {
         if (userDto == null || id != userDto.Id)
         {
@@ -152,7 +152,7 @@ public class UserController : ControllerBase
             ImageUrl = userDto.ImageUrl
         };
         _db.Users.Update(model);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return NoContent();
     }
 
@@ -160,14 +160,14 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult UpdatePartialUser(int id, JsonPatchDocument<UserDto> patchDto)
+    public async Task<IActionResult> UpdatePartialUser(int id, JsonPatchDocument<UserUpdateDto> patchDto)
     {
         if (patchDto == null || id == 0)
         {
             return BadRequest();
         }
-        var user = _db.Users.FirstOrDefault(u => u.Id == id);
-        UserDto userDto = new()
+        var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+        UserUpdateDto userDto = new()
         {
             Id = user.Id,
             Age = user.Age,
@@ -197,7 +197,7 @@ public class UserController : ControllerBase
             ImageUrl = userDto.ImageUrl
         };
         _db.Users.Update(model);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         return NoContent();
     }
      
