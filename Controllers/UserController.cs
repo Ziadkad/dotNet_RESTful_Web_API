@@ -1,4 +1,5 @@
-﻿using dotNet_RESTful_Web_API.Data;
+﻿using AutoMapper;
+using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
@@ -14,11 +15,12 @@ public class UserController : ControllerBase
     // integrated logger
     private readonly ILogger<UserController> _logger;
     private readonly AppDbContext _db;
-    
-    public UserController(ILogger<UserController> logger, AppDbContext db)
+    private readonly IMapper _mapper;
+    public UserController(ILogger<UserController> logger, AppDbContext db, IMapper mapper)
     {
         _logger = logger;
         _db = db;
+        _mapper = mapper;
     }
     // custom Logger
     // private readonly ILogging _logger;
@@ -34,7 +36,8 @@ public class UserController : ControllerBase
     {
         // _logger.LogInformation("Getting All Users");
         // _logger.Log("Getting All Users"," ");
-        return Ok(await _db.Users.ToListAsync());
+        IEnumerable<User> users = await _db.Users.ToListAsync();
+        return Ok(_mapper.Map<List<UserDto>>(users));
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
     // [ProducesResponseType(200,Type = typeof(UserDto))]
@@ -57,7 +60,7 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(user);
+        return Ok(_mapper.Map<UserDto>(user));
     }
 
     [HttpPost]
@@ -65,7 +68,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     // [FromBody] means the body of http req
-    public async Task<ActionResult<UserDto>> CreateUser([FromBody] UserCreateDto userDto)
+    public async Task<ActionResult<UserDto>> CreateUser([FromBody] UserCreateDto createDto)
     {
         //this is unnecessary unless we comment [ApiController]
         // if (!ModelState.IsValid)
@@ -74,31 +77,23 @@ public class UserController : ControllerBase
         // }
         
         //custom Error
-        if (await _db.Users.FirstOrDefaultAsync(u => u.Name.ToLower() == userDto.Name.ToLower()) != null)
+        if (await _db.Users.FirstOrDefaultAsync(u => u.Name.ToLower() == createDto.Name.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","User already Exists!");
             return BadRequest(ModelState);
         }
         
-        if (userDto == null)
+        if (createDto == null)
         {
-            return BadRequest(userDto);
+            return BadRequest(createDto);
         }
 
         // if (userDto.Id > 0)
         // {
         //     return StatusCode(StatusCodes.Status500InternalServerError);
         // }
-
-        User model = new()
-        {
-            Age = userDto.Age,
-            Disability = userDto.Disability,
-            Name = userDto.Name,
-            Email = userDto.Email,
-            Password = userDto.Password,
-            ImageUrl = userDto.ImageUrl
-        };
+        User model = _mapper.Map<User>(createDto);
+        
         await _db.Users.AddAsync(model);
         await _db.SaveChangesAsync();
         //this is fine but sometimes front want the end points, if that's the case we add explicit func to getbyid methode
@@ -131,9 +126,9 @@ public class UserController : ControllerBase
     [HttpPut("{id:int}",Name = "UpdateUser")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateUser(int id,[FromBody] UserUpdateDto userDto)
+    public async Task<IActionResult> UpdateUser(int id,[FromBody] UserUpdateDto updateDto)
     {
-        if (userDto == null || id != userDto.Id)
+        if (updateDto == null || id != updateDto.Id)
         {
             return BadRequest();
         }
@@ -141,16 +136,17 @@ public class UserController : ControllerBase
         // user.Name = userDto.Name;
         // user.Age = userDto.Age;
         // user.Disability = userDto.Disability;
-        User model = new()
-        {
-            Id = userDto.Id,
-            Age = userDto.Age,
-            Disability = userDto.Disability,
-            Name = userDto.Name,
-            Email = userDto.Email,
-            Password = userDto.Password,
-            ImageUrl = userDto.ImageUrl
-        };
+        // User model = new()
+        // {
+        //     Id = updateDto.Id,
+        //     Age = updateDto.Age,
+        //     Disability = updateDto.Disability,
+        //     Name = updateDto.Name,
+        //     Email = updateDto.Email,
+        //     Password = updateDto.Password,
+        //     ImageUrl = updateDto.ImageUrl
+        // };
+        User model = _mapper.Map<User>(updateDto);
         _db.Users.Update(model);
         await _db.SaveChangesAsync();
         return NoContent();
@@ -167,35 +163,18 @@ public class UserController : ControllerBase
             return BadRequest();
         }
         var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-        UserUpdateDto userDto = new()
-        {
-            Id = user.Id,
-            Age = user.Age,
-            Disability = user.Disability,
-            Name = user.Name,
-            Email = user.Email,
-            Password = user.Password,
-            ImageUrl = user.ImageUrl
-        };
         if (user == null)
         {
             return NotFound();
         }
+        UserUpdateDto userDto = _mapper.Map<UserUpdateDto>(user);
         patchDto.ApplyTo(userDto, ModelState);
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
-        User model = new()
-        {
-            Id = userDto.Id,
-            Age = userDto.Age,
-            Disability = userDto.Disability,
-            Name = userDto.Name,
-            Email = userDto.Email,
-            Password = userDto.Password,
-            ImageUrl = userDto.ImageUrl
-        };
+
+        User model = _mapper.Map<User>(userDto);
         _db.Users.Update(model);
         await _db.SaveChangesAsync();
         return NoContent();
