@@ -3,6 +3,7 @@ using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
+using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,12 @@ public class UserController : ControllerBase
 {
     // integrated logger
     private readonly ILogger<UserController> _logger;
-    private readonly AppDbContext _db;
+    private readonly IUserRepository _dbUser;
     private readonly IMapper _mapper;
-    public UserController(ILogger<UserController> logger, AppDbContext db, IMapper mapper)
+    public UserController(ILogger<UserController> logger, IUserRepository dbUser, IMapper mapper)
     {
         _logger = logger;
-        _db = db;
+        _dbUser = dbUser;
         _mapper = mapper;
     }
     // custom Logger
@@ -36,7 +37,7 @@ public class UserController : ControllerBase
     {
         // _logger.LogInformation("Getting All Users");
         // _logger.Log("Getting All Users"," ");
-        IEnumerable<User> users = await _db.Users.ToListAsync();
+        IEnumerable<User> users = await _dbUser.GetAllAsync();
         return Ok(_mapper.Map<List<UserDto>>(users));
     }
     [HttpGet("{id:int}",Name="GetOneUser")] //name is to explicitly call it in post 
@@ -50,12 +51,12 @@ public class UserController : ControllerBase
     {
         if (id == 0)
         {
-            _logger.LogError("Get User Error with Id : " + id);
+            // _logger.LogError("Get User Error with Id : " + id);
             // _logger.Log("Get User Error with Id : " + id,"error");
             return BadRequest();
         }
 
-        var user =await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        var user =await _dbUser.GetAsync(u=>u.Id == id);
         if(user==null)
         {
             return NotFound();
@@ -77,7 +78,7 @@ public class UserController : ControllerBase
         // }
         
         //custom Error
-        if (await _db.Users.FirstOrDefaultAsync(u => u.Name.ToLower() == createDto.Name.ToLower()) != null)
+        if (await _dbUser.GetAsync(u => u.Name.ToLower() == createDto.Name.ToLower()) != null)
         {
             ModelState.AddModelError("CustomError","User already Exists!");
             return BadRequest(ModelState);
@@ -93,9 +94,8 @@ public class UserController : ControllerBase
         //     return StatusCode(StatusCodes.Status500InternalServerError);
         // }
         User model = _mapper.Map<User>(createDto);
-        
-        await _db.Users.AddAsync(model);
-        await _db.SaveChangesAsync();
+
+        await _dbUser.CreateAsync(model);
         //this is fine but sometimes front want the end points, if that's the case we add explicit func to getbyid methode
         // return Ok(userDto);
         // we get the route in the http response header 
@@ -112,14 +112,13 @@ public class UserController : ControllerBase
         {
             return BadRequest();
         }
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        var user = await _dbUser.GetAsync(u => u.Id == id);
         if (user == null)
         {
             return NotFound();
         }
 
-        _db.Users.Remove(user);
-        await _db.SaveChangesAsync();
+        await _dbUser.RemoveAsync(user);
         return NoContent();
     }
 
@@ -147,8 +146,7 @@ public class UserController : ControllerBase
         //     ImageUrl = updateDto.ImageUrl
         // };
         User model = _mapper.Map<User>(updateDto);
-        _db.Users.Update(model);
-        await _db.SaveChangesAsync();
+        await _dbUser.UpdateAsync(model);
         return NoContent();
     }
 
@@ -162,7 +160,7 @@ public class UserController : ControllerBase
         {
             return BadRequest();
         }
-        var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+        var user = await _dbUser.GetAsync(u => u.Id == id,tracked:false);
         if (user == null)
         {
             return NotFound();
@@ -175,8 +173,7 @@ public class UserController : ControllerBase
         }
 
         User model = _mapper.Map<User>(userDto);
-        _db.Users.Update(model);
-        await _db.SaveChangesAsync();
+        await _dbUser.UpdateAsync(model);
         return NoContent();
     }
      
