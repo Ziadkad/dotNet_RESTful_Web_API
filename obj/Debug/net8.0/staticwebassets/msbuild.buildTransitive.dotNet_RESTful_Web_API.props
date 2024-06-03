@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\dotNet_RESTful_Web_API.props" />
-</Project>
