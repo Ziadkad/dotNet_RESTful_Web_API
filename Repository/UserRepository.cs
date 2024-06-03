@@ -15,14 +15,14 @@ public class UserRepository : IUserRepository
         _db = db;
     }
 
-    public async Task<List<User>> GetAllAsync(Expression<Func<User,bool>> filter)
+    public async Task<List<User>?> GetAllAsync(Expression<Func<User,bool>>? filter)
     {
         IQueryable<User> query = _db.Users;
         if(filter != null){ query = query.Where(filter);}
         return await query.ToListAsync();
     }
 
-    public async Task<User> GetAsync(Expression<Func<User,bool>> filter, bool tracked = true)
+    public async Task<User?> GetAsync(Expression<Func<User,bool>>? filter, bool tracked = true)
     {
         IQueryable<User> query = _db.Users;
         if (!tracked) {  query = query.AsNoTracking();}
