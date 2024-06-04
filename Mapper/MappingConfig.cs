@@ -8,10 +8,12 @@ public class MappingConfig : Profile
 {
     public MappingConfig()
     {
-        CreateMap<User, UserDto>();
-        CreateMap<UserDto, User>();
-        
+        CreateMap<User, UserDto>().ReverseMap();
         CreateMap<User, UserCreateDto>().ReverseMap();
         CreateMap<User, UserUpdateDto>().ReverseMap();
+
+        CreateMap<UserNumber, UserNumberDto>().ReverseMap();
+        CreateMap<UserNumber, UserNumberCreateDto>().ReverseMap();
+        CreateMap<UserNumber, UserNumberUpdateDto>().ReverseMap();
     }
 }

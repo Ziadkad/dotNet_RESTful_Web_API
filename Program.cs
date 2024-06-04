@@ -16,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddScoped<IUserRepository, UserRepository>();  
+builder.Services.AddScoped<IUserNumberRepository, UserNumberRepository>();  
 // configuring Serilog to log in a file 
 // Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/Userlogs.txt",rollingInterval: RollingInterval.Infinite).CreateLogger();
 

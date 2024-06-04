@@ -183,7 +183,7 @@ public class UserController : ControllerBase
 
     [HttpPut("{id:int}",Name = "UpdateUser")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ApiResponse>> UpdateUser(int id,[FromBody] UserUpdateDto updateDto)
     {
         try
@@ -208,8 +208,8 @@ public class UserController : ControllerBase
             //     Password = updateDto.Password,
             //     ImageUrl = updateDto.ImageUrl
             // };
-            User model = _mapper.Map<User>(updateDto);
-            await _dbUser.UpdateAsync(model);
+            User user = _mapper.Map<User>(updateDto);
+            await _dbUser.UpdateAsync(user);
             _response.StatusCode = HttpStatusCode.NoContent;
             _response.IsSuccess = true;
             return Ok(_response);
