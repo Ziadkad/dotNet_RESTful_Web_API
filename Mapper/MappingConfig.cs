@@ -15,5 +15,9 @@ public class MappingConfig : Profile
         CreateMap<UserNumber, UserNumberDto>().ReverseMap();
         CreateMap<UserNumber, UserNumberCreateDto>().ReverseMap();
         CreateMap<UserNumber, UserNumberUpdateDto>().ReverseMap();
+
+        CreateMap<LocalUser, RegistrationRequestDto>().ReverseMap();
+        CreateMap<LocalUser, LoginRequestDto>().ReverseMap();
+        
     }
 }

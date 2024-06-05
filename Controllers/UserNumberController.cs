@@ -48,20 +48,16 @@ public class UserNumberController : ControllerBase
     {
         try
         {
-            Console.WriteLine("start");
             if (userNo == 0)
             {
-                Console.WriteLine(" 0 ");
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
                 return BadRequest(_response);
             }
 
             var userNumber =await _dbUserNumber.GetAsync(u=>u.UserNo == userNo);
-            Console.WriteLine("user Number " + userNumber);
             if(userNumber==null)
             {
-                Console.WriteLine("null");
                 _response.StatusCode = HttpStatusCode.NotFound;
                 _response.IsSuccess = false;
                 return NotFound(_response);
@@ -176,6 +172,7 @@ public class UserNumberController : ControllerBase
                 return BadRequest(_response);
             }
             UserNumber UserNumber = _mapper.Map<UserNumber>(updateDto);
+            
             await _dbUserNumber.UpdateAsync(UserNumber);
             _response.StatusCode = HttpStatusCode.NoContent;
             _response.IsSuccess = true;

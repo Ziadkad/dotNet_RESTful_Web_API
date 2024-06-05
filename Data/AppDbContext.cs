@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
 
      public DbSet<User> Users { get; set; }
      public DbSet<UserNumber> UserNumbers { get; set; }
+     public DbSet<LocalUser> LocalUsers { get; set; }
 
      protected override void OnModelCreating(ModelBuilder modelBuilder)
      {
