@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
             "Microsoft.AspNetCore.JsonPatch": {
               "target": "Package",
               "version": "[9.0.0-preview.4.24267.6, )"

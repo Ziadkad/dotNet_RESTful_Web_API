@@ -38,7 +38,11 @@ public class LocalUserRepository : ILocalUserRepository
         var user = await _db.LocalUsers.FirstOrDefaultAsync(u => u.Username.ToLower() == loginRequestDto.Username.ToLower() && u.Password == loginRequestDto.Password);
         if (user == null)
         {
-            return null; 
+            return new LoginResponseDto()
+            {
+                Token = "",
+                User = null
+            }; 
         }
 
         var tokenHandler = new JwtSecurityTokenHandler();

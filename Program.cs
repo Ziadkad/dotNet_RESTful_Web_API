@@ -1,11 +1,15 @@
 
 
+using System.Text;
 using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.Mapper;
 using dotNet_RESTful_Web_API.Repository;
 using dotNet_RESTful_Web_API.Repository.IRepository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +20,28 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddScoped<IUserRepository, UserRepository>();  
-builder.Services.AddScoped<IUserNumberRepository, UserNumberRepository>();  
+builder.Services.AddScoped<IUserNumberRepository, UserNumberRepository>();
+builder.Services.AddScoped<ILocalUserRepository, LocalUserRepository>();
 // configuring Serilog to log in a file 
 // Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/Userlogs.txt",rollingInterval: RollingInterval.Infinite).CreateLogger();
-
-// doesn't work
-// builder.Host.UseSerilog();
-
+var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(x =>
+        {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+    });
 // Add services to the container.
 // option.ReturnHttpNotAcceptable=true to not accept other types
 // AddNewtonsoftJson so we can use patch 
@@ -35,7 +54,35 @@ builder.Services
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Description =
+            "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
+            "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
+            "Example: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
 
 // custom logging
 // explicit call so every object created with ILogging takes Logging
@@ -43,6 +90,10 @@ builder.Services.AddSwaggerGen();
 // Scoped new  object for every request
 // Transient new object every time object is accessed even within the same request
 builder.Services.AddSingleton<ILogging, Logging>();
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,6 +104,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

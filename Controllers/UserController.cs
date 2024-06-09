@@ -1,13 +1,10 @@
 ﻿using System.Net;
 using AutoMapper;
-using dotNet_RESTful_Web_API.Data;
-using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using dotNet_RESTful_Web_API.Repository.IRepository;
-using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dotNet_RESTful_Web_API.Controllers;
 [Route("api/[controller]")]
@@ -35,6 +32,7 @@ public class UserController : ControllerBase
     // }
 
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers()
     {
@@ -95,6 +93,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "admin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -147,6 +146,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = "DeleteUser")]
+    [Authorize(Roles = "custom")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
