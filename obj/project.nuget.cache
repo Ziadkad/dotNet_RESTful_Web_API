@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "vfRBjIQW4k5A8poJ3qfV51aIRpLhqxhIcmh5TwbS8bJk0SacFd4Kgzo+kPyg2r6+WMK7QgrZPHWAXgZp+Q0ozg==",
+  "dgSpecHash": "VjVugTytDCkjrmrvIUzhQzgsrv6Tq24AkilhRgdNsOJqei4OplEO+JkQC7r37bFLghRIIysqTnH4Eg50olt+ug==",
   "success": true,
   "projectFilePath": "C:\\Users\\ziada\\OneDrive\\Bureau\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API\\dotNet_RESTful_Web_API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ziada\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\asp.versioning.mvc\\8.1.0\\asp.versioning.mvc.8.1.0.nupkg.sha512",
+    "C:\\Users\\ziada\\.nuget\\packages\\asp.versioning.mvc.apiexplorer\\8.1.0\\asp.versioning.mvc.apiexplorer.8.1.0.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ziada\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

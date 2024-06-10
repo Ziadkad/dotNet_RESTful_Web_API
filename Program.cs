@@ -1,6 +1,7 @@
 
 
 using System.Text;
+using Asp.Versioning;
 using dotNet_RESTful_Web_API.Data;
 using dotNet_RESTful_Web_API.Logging;
 using dotNet_RESTful_Web_API.Mapper;
@@ -22,6 +23,12 @@ builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddScoped<IUserRepository, UserRepository>();  
 builder.Services.AddScoped<IUserNumberRepository, UserNumberRepository>();
 builder.Services.AddScoped<ILocalUserRepository, LocalUserRepository>();
+//versionning
+builder.Services.AddApiVersioning(option =>
+{
+    option.AssumeDefaultVersionWhenUnspecified = true;
+    option.DefaultApiVersion = new ApiVersion(1, 0);
+});
 // configuring Serilog to log in a file 
 // Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/Userlogs.txt",rollingInterval: RollingInterval.Infinite).CreateLogger();
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");

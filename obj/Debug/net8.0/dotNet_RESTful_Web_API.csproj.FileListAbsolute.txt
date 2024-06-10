@@ -191,3 +191,7 @@ C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin
 C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Asp.Versioning.Abstractions.dll
+C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Asp.Versioning.Http.dll
+C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Asp.Versioning.Mvc.dll
+C:\Users\ziada\OneDrive\Bureau\dotNet_RESTful_Web_API\dotNet_RESTful_Web_API\bin\Debug\net8.0\Asp.Versioning.Mvc.ApiExplorer.dll
