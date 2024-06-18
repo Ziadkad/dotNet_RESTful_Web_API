@@ -38,7 +38,7 @@ public class UserController : ControllerBase
     [ResponseCache(Duration = 30)]
     // [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)] //if you want to retrieve everytime
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers([FromQuery(Name = "Disability")]bool? disability, [FromQuery] string? search)
+    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers([FromQuery(Name = "Disability")]bool? disability, [FromQuery] string? search, int pageSize = 2,int pageNumber = 1)
     {
         // _logger.LogInformation("Getting All Users");
         try
@@ -46,11 +46,11 @@ public class UserController : ControllerBase
             IEnumerable<User>? users;
             if (disability != null)
             {
-                 users = await _dbUser.GetAllAsync(u=> u.Disability == disability);
+                 users = await _dbUser.GetAllAsync(u=> u.Disability == disability, pageSize: pageSize,pageNumber : pageNumber);
             }
             else
             {
-                users = await _dbUser.GetAllAsync();
+                users = await _dbUser.GetAllAsync( pageSize: pageSize,pageNumber : pageNumber);
             }
 
             if (!string.IsNullOrEmpty(search))
