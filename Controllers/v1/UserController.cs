@@ -1,14 +1,17 @@
 ﻿using System.Net;
+using Asp.Versioning;
 using AutoMapper;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace dotNet_RESTful_Web_API.Controllers.v1;
 [Route("api/[controller]")]
 [ApiController] // Also gives validations see UserDto.cs
+[ApiVersionNeutral ]
 public class UserController : ControllerBase
 {
     // integrated logger
@@ -35,12 +38,25 @@ public class UserController : ControllerBase
     [ResponseCache(Duration = 30)]
     // [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)] //if you want to retrieve everytime
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers()
+    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers([FromQuery(Name = "Disability")]bool? disability, [FromQuery] string? search)
     {
         // _logger.LogInformation("Getting All Users");
         try
         {
-            IEnumerable<User>? users = await _dbUser.GetAllAsync();
+            IEnumerable<User>? users;
+            if (disability != null)
+            {
+                 users = await _dbUser.GetAllAsync(u=> u.Disability == disability);
+            }
+            else
+            {
+                users = await _dbUser.GetAllAsync();
+            }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                users = users.Where(u => u.Name.ToLower().Contains(search));
+            }
             _response.Result = _mapper.Map<List<UserDto>>(users);
             _response.IsSuccess = true;
             _response.StatusCode = HttpStatusCode.OK;
