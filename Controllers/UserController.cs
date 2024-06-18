@@ -32,7 +32,7 @@ public class UserController : ControllerBase
     // }
 
     [HttpGet]
-    [Authorize]
+ 
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers()
     {

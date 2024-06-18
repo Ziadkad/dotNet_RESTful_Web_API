@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Asp.Versioning;
 using AutoMapper;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
@@ -6,22 +7,25 @@ using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotNet_RESTful_Web_API.Controllers;
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-public class UserNumberController : ControllerBase
+[ApiVersion("1.0")]
+
+public class UserNumberv1Controller : ControllerBase
 {
     private readonly IUserNumberRepository _dbUserNumber;
     private readonly IUserRepository _dbUser;
     private readonly IMapper _mapper;
     protected ApiResponse _response;
-    public UserNumberController(IUserNumberRepository dbUserNumber, IMapper mapper,IUserRepository dbUser)
+    public UserNumberv1Controller(IUserNumberRepository dbUserNumber, IMapper mapper,IUserRepository dbUser)
     {
         _dbUserNumber = dbUserNumber;
         _mapper = mapper;
-        this._response = new();
+        _response = new();
         _dbUser = dbUser;
     }
     [HttpGet]
+    [MapToApiVersion(1.0)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsersNumbers()
     {
@@ -40,6 +44,9 @@ public class UserNumberController : ControllerBase
         }
         return Ok(_response);
     }
+    
+    
+    
     [HttpGet("{userNo:int}",Name="GetOneUserNumber")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
