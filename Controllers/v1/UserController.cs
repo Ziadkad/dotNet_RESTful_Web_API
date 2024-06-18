@@ -39,7 +39,7 @@ public class UserController : ControllerBase
     [ResponseCache(Duration = 30)]
     // [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)] //if you want to retrieve everytime
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers([FromQuery(Name = "Disability")]bool? disability, [FromQuery] string? search, int pageSize = 2,int pageNumber = 1)
+    public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers([FromQuery(Name = "Disability")]bool? disability, [FromQuery] string? search, int pageSize = 0,int pageNumber = 1)
     {
         // _logger.LogInformation("Getting All Users");
         try
