@@ -32,7 +32,8 @@ public class UserController : ControllerBase
     // }
 
     [HttpGet]
- 
+    [ResponseCache(Duration = 30)]
+    // [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)] //if you want to retrieve everytime
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsers()
     {

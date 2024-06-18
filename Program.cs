@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
-
+builder.Services.AddResponseCaching();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddScoped<IUserRepository, UserRepository>();  
 builder.Services.AddScoped<IUserNumberRepository, UserNumberRepository>();
