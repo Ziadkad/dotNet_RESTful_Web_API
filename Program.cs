@@ -8,6 +8,7 @@ using dotNet_RESTful_Web_API.Mapper;
 using dotNet_RESTful_Web_API.Repository;
 using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -60,7 +61,13 @@ builder.Services.AddAuthentication(options =>
 //AddXmlDataContractSerializerFormatters() to change data to xml
 builder.Services
      // .AddControllers(option => { option.ReturnHttpNotAcceptable = true; })
-     .AddControllers()
+     .AddControllers(option =>
+     {
+         option.CacheProfiles.Add("Default1", new CacheProfile()
+         {
+             Duration = 30,
+         });
+     })
      .AddNewtonsoftJson()
      .AddXmlDataContractSerializerFormatters();
 

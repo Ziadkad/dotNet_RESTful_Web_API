@@ -95,6 +95,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "admin")]
+    [ResponseCache(CacheProfileName = "Default1")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
