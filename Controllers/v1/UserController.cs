@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json;
 using Asp.Versioning;
 using AutoMapper;
 using dotNet_RESTful_Web_API.models;
@@ -57,6 +58,8 @@ public class UserController : ControllerBase
             {
                 users = users.Where(u => u.Name.ToLower().Contains(search));
             }
+            Pagination pagination = new() { PageNumber = pageNumber, PageSize = pageSize }; 
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagination));
             _response.Result = _mapper.Map<List<UserDto>>(users);
             _response.IsSuccess = true;
             _response.StatusCode = HttpStatusCode.OK;
