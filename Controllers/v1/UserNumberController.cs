@@ -6,18 +6,18 @@ using dotNet_RESTful_Web_API.models.Dto;
 using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotNet_RESTful_Web_API.Controllers;
-[Route("api/v{version:apiVersion}/[controller]")]
+namespace dotNet_RESTful_Web_API.Controllers.v1;
+[Route("api/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
 
-public class UserNumberv1Controller : ControllerBase
+public class UserNumberController : ControllerBase
 {
     private readonly IUserNumberRepository _dbUserNumber;
     private readonly IUserRepository _dbUser;
     private readonly IMapper _mapper;
     protected ApiResponse _response;
-    public UserNumberv1Controller(IUserNumberRepository dbUserNumber, IMapper mapper,IUserRepository dbUser)
+    public UserNumberController(IUserNumberRepository dbUserNumber, IMapper mapper,IUserRepository dbUser)
     {
         _dbUserNumber = dbUserNumber;
         _mapper = mapper;
@@ -25,7 +25,6 @@ public class UserNumberv1Controller : ControllerBase
         _dbUser = dbUser;
     }
     [HttpGet]
-    [MapToApiVersion(1.0)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<ApiResponse>>> GetUsersNumbers()
     {

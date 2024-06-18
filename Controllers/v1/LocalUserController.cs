@@ -6,7 +6,7 @@ using dotNet_RESTful_Web_API.models.Dto;
 using dotNet_RESTful_Web_API.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotNet_RESTful_Web_API.Controllers;
+namespace dotNet_RESTful_Web_API.Controllers.v1;
 
 [Route("api/[controller]")]
 [ApiController]
