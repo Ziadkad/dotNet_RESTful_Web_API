@@ -10,7 +10,7 @@ namespace dotNet_RESTful_Web_API.Controllers.v1;
 [Route("api/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
-
+// [ApiVersion("1.0",Deprecated = true)]
 public class UserNumberController : ControllerBase
 {
     private readonly IUserNumberRepository _dbUserNumber;

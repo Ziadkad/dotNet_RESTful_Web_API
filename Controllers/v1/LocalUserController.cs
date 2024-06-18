@@ -1,6 +1,7 @@
 ﻿
 
 using System.Net;
+using Asp.Versioning;
 using dotNet_RESTful_Web_API.models;
 using dotNet_RESTful_Web_API.models.Dto;
 using dotNet_RESTful_Web_API.Repository.IRepository;
@@ -10,6 +11,7 @@ namespace dotNet_RESTful_Web_API.Controllers.v1;
 
 [Route("api/[controller]")]
 [ApiController]
+[ApiVersionNeutral]
 public class LocalUserController : ControllerBase
 {
     private readonly ILocalUserRepository _localUser;
